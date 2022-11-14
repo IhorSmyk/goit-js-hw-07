@@ -1,6 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-//////////////////////////////////////////////////////////////////////
+
 const galleryRef = document.querySelector(".gallery");
 
 function createGalleryMarkup(items) {
@@ -38,4 +38,3 @@ function onImageClick(e) {
 
 galleryRef.innerHTML = createGalleryMarkup(galleryItems);
 galleryRef.addEventListener("click", onImageClick);
-////////////////////////////////////////////////////////////////////////
