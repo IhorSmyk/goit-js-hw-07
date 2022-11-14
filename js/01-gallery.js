@@ -1,33 +1,41 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-
+//////////////////////////////////////////////////////////////////////
 const galleryRef = document.querySelector(".gallery");
 
-console.log(galleryItems);
-
 function createGalleryMarkup(items) {
-  return items.map((item) => `<div class="gallery__item">
-  <a class="gallery__link" href="${item.original}">
+    return items.map((el) => `<div class="gallery__item">
+  <a class="gallery__link" href="${el.original}">
     <img 
       class="gallery__image"
-      src="${item.preview}"
-      data-source="${item.original}"
-      alt="${item.description}"
+      src="${el.preview}"
+      data-source="${el.original}"
+      alt="${el.description}"
     />
   </a>
 </div>`).join('');
 }
 
-createGalleryMarkup(galleryItems);
+function onImageClick(e) {
+    if (e.target.nodeName !== "IMG") {
+        return;
+    }
 
-// for (let i = 0; i < array.length; i++) {
-//     galleryRef.insertAdjacentHTML("beforeend", createGalleryMarkup(galleryItems));
-// }
+    e.preventDefault();
+
+    const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+    `);
+
+    instance.show();
+
+    galleryRef.addEventListener("keydown", e => {
+        if (e.code === "Escape") {
+            instance.close();
+        }
+    });
+}
 
 galleryRef.innerHTML = createGalleryMarkup(galleryItems);
-
-// const addGallaryMarkup = createGallaryMarkup(galleryItems);
-
-// galleryBlock.innerHTML = addGallaryMarkup;
-
-// galleryBlock.addEventListener("click", onImageClick);
+galleryRef.addEventListener("click", onImageClick);
+////////////////////////////////////////////////////////////////////////
